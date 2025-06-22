@@ -1,56 +1,109 @@
-# ATP-BRNet
+# ATP-BRNet: A Binned Regression Network for Fine-Grained ATP Prediction from Organoid Brightfield Images
 
-This repository contains the codebase for **ATP-BRNet**, a two-phase deep learning framework for predicting ATP levels in organoid bright-field images.
+## 🧬 Overview
 
-## 📦 Installation
+**ATP-BRNet** is a deep learning framework designed to predict ATP levels from organoid brightfield microscopy images. It combines *interval classification* and *within-bin regression* in a two-phase training strategy to improve the accuracy and generalizability of ATP estimation, especially for challenging low-ATP and under-represented samples.
 
-To install all required dependencies, run:
+This model outperforms standard CNN baselines and supports explainable predictions via class-aware attention and heatmap visualization.
+
+---
+
+## 📁 Project Structure
+
+```
+ATP-BRNet/
+│
+├── data/
+│   ├── processed_image_atp_mapping.json     # Mapping from image paths to ATP values
+│   └── example_prediction.csv               # Example prediction outputs
+│
+├── generate_heatmap/                        # Heatmap generation for models
+│
+├── model/
+│   ├── AD2DMIT.py                           # Main model architecture
+│   ├── Benchmarks.py                        # Benchmarks model architecture
+│   └── utils.py                             # Auxiliary functions
+│
+├── predict/                                 # batch predict and generate csv
+│
+├── train_phase1.py                          # Phase 1: training classification head
+├── train_phase2.py                          # Phase 2: training regression heads
+├── EXP_train_AD_continue.py                 # Training script for baseline in continue style
+├── EXP_train_MutiHead_BenchMark.py          #  train in BenchMark
+│
+├── evaluate_model_metrics.py                # Evaluation script (MAE, MAPE, ACC, R²)
+├── requirements.txt                         # Python environment dependencies
+└── README.md                                # Project documentation
+```
+
+---
+
+## 🔧 Environment Setup
+
+Requires Python ≥ 3.8. We recommend using a virtual environment:
 
 ```bash
+conda create -n atp_env python=3.8
+conda activate atp_env
 pip install -r requirements.txt
 ```
 
 ---
 
-## 🚀 Project Structure
+## 🚀 Quick Start
 
-### Phase 1: Classification Module Training
+### 1️⃣ Train ATP-BRNet
 
-Train the ATP level classification model:
+**Phase 1: Classification training**
 
 ```bash
-python AD2DMIT_train_logbin_concat_3.py
+python train_phase1.py
+```
+
+**Phase 2: Regression training (freeze classifier)**
+
+```bash
+python train_phase2.py
+```
+
+### 2️⃣ Predict ATP values
+
+```bash
+python predict/pred_csv.py
+```
+
+### 3️⃣ Generate Heatmaps
+
+```bash
+python generate_heatmap/pred_csv_MutiQ_save.py
 ```
 
 ---
 
-### Phase 2: Regression Module Training
+## 📈 Evaluation
 
-Train the multi-head regression model with bin-based supervision:
-
-```bash
-python ADMutiHead_train.py
-```
-
----
-
-### 🔍 Inference on JSON File
-
-Make predictions from a given image-ATP mapping JSON:
+Evaluate prediction performance with:
 
 ```bash
-python pred_csv_MutiQ.py
+python evaluate_model_metrics.py
 ```
 
----
+Reported metrics include:
 
-### 🌡️ Heatmap Generation
+* MAE (Mean Absolute Error)
+* MAPE (Mean Absolute Percentage Error)
+* Pair ACC (Pairwise Accuracy for ranking)
+* R² Score (Coefficient of Determination)
 
-Generate and save predicted ATP heatmaps:
+## 📌 Model Design: ATP-BRNet
 
-```bash
-python pred_csv_MutiQ_save.py
-```
+ATP-BRNet includes:
+
+1. **Feature Extractor**: Deep CNN with multi-scale filters
+2. **Attention Module**: Learns spatially focused representations
+3. **Classifier Head**: Outputs ATP bin probabilities
+4. **Multiple Regression Heads**: Predict normalized position within each ATP bin
+5. **Final ATP Estimation**
 
 ---
 
@@ -59,7 +112,7 @@ python pred_csv_MutiQ_save.py
 If you find **ATP-BRNet** useful in your research, please consider citing our work:
 
 ```bibtex
-# Citation placeholder
+# Citation placeholder in future
 ```
 
 ---

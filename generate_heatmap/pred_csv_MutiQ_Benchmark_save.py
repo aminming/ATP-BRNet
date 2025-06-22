@@ -114,7 +114,6 @@ model.feature_extractor.feature_extractor = torch.nn.Sequential(
 
 # ============ 主流程 ============
 df = pd.read_csv('./data/pred.csv')
-df = pd.read_csv('./data/image_atp_mapping_LT5.csv')
 
 sampled_per_level = {}
 
