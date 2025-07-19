@@ -5,7 +5,7 @@ import numpy as np
 import cv2
 from sympy.integrals.meijerint_doc import category
 from torchvision import transforms
-from model.AD2DMIT import AD2D_MIL_bin_Q,AD2D_MIL_Log_Continue
+from model.ATP_HCR import ATP_HCR_bin_Q,ATP_HCR_Log_Continue
 from PIL import Image
 from tqdm import tqdm
 import itertools
@@ -28,7 +28,7 @@ transform = transforms.Compose([
 
 # 3. 加载模型
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-model = AD2D_MIL_Log_Continue(
+model = ATP_HCR_Log_Continue(
         in_channel=1,  # RGB输入
         hidden=256,  # 隐藏层维度
         image_size=512,

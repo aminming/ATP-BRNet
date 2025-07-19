@@ -20,7 +20,7 @@ ATP-BRNet/
 ├── generate_heatmap/                        # Heatmap generation for models
 │
 ├── model/
-│   ├── AD2DMIT.py                           # Main model architecture
+│   ├── ATP_HCR.py                           # Main model architecture
 │   ├── Benchmarks.py                        # Benchmarks model architecture
 │   └── utils.py                             # Auxiliary functions
 │

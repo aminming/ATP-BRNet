@@ -18,7 +18,7 @@ import cv2
 from scipy.ndimage import label, find_objects
 
 
-"""训练AD2D_MIL_bin_MutiQ模型"""
+"""训练ATP_HCR_bin_MutiQ模型"""
 plt.rcParams['font.sans-serif'] = ['SimHei']
 os.environ['HTTP_PROXY'] = 'http://127.0.0.1:7890'
 os.environ['HTTPS_PROXY'] = 'http://127.0.0.1:7890'

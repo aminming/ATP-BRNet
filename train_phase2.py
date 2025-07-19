@@ -13,14 +13,14 @@ from PIL import Image
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import torch.nn as nn
-from model.AD2DMIT import AD2D_MIL_bin_MutiQ
+from model.ATP_HCR import ATP_HCR_bin_MutiQ
 from torchsummary import summary
 import cv2
 from scipy.ndimage import label, find_objects
 from torchsummary import summary
 import copy
 
-"""训练AD2D_MIL_bin_MutiQ模型"""
+"""训练ATP_HCR_bin_MutiQ模型"""
 plt.rcParams['font.sans-serif'] = ['SimHei']
 os.environ['HTTP_PROXY'] = 'http://127.0.0.1:7890'
 os.environ['HTTPS_PROXY'] = 'http://127.0.0.1:7890'
@@ -709,7 +709,7 @@ if __name__ == '__main__':
     # 初始化模型
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print("Using device:", device)
-    model = AD2D_MIL_bin_MutiQ(
+    model = ATP_HCR_bin_MutiQ(
         in_channel=1,  # RGB输入
         hidden=256,  # 隐藏层维度
         category=num_category,
@@ -741,4 +741,4 @@ if __name__ == '__main__':
     model = train_model(model, dataloaders, criterion, optimizer, scheduler,num_epochs=epoch_num, device=str(device),model_name=model_name,label_ranges=train_dataset.label_ranges)
 
     # 保存最佳模型
-    # torch.save(model.state_dict(), 'ad2d_mil_best.pth')
+    # torch.save(model.state_dict(), 'ATP_HCR_best.pth')

@@ -12,7 +12,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import torch.nn as nn
-from model.AD2DMIT import AD2D_MIL_Log_Continue
+from model.ATP_HCR import ATP_HCR_Log_Continue
 from torchsummary import summary
 import cv2
 from scipy.ndimage import label, find_objects
@@ -326,7 +326,7 @@ if __name__ == '__main__':
     # 初始化模型
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print("Using device:", device)
-    model = AD2D_MIL_Log_Continue(
+    model = ATP_HCR_Log_Continue(
         in_channel=1,  # RGB输入
         hidden=256,  # 隐藏层维度
         image_size=image_size,
